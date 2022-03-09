@@ -1,6 +1,4 @@
-FROM registry.ci.openshift.org/openshift/release:golang-1.16 AS builder
-ENV GOFLAGS=-mod=mod
-WORKDIR /go/src/github.com/openshift/gpu-init-container
+FROM registry.access.redhat.com/ubi8/go-toolset:1.16.12 AS builder
 
 # Bring in the go dependencies before anything else so we can take
 # advantage of caching these layers in future builds.
@@ -11,8 +9,8 @@ RUN go mod download
 COPY . .
 RUN make build
 
-FROM registry.access.redhat.com/ubi8/ubi:latest
+FROM registry.access.redhat.com/ubi8/ubi-micro
 
-COPY --from=builder /go/src/github.com/openshift/gpu-init-container/build/init_container /usr/bin/init_run
+COPY --from=builder /opt/app-root/src/build/init_container /usr/bin/init_run
 
 ENTRYPOINT ["/usr/bin/init_run"]

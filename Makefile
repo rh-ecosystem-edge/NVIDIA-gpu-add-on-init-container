@@ -17,7 +17,7 @@ GINKGO_FLAGS = -ginkgo.focus="$(FOCUS)" -ginkgo.v -ginkgo.skip="$(SKIP)" -ginkgo
 all: lint format-check build build-images unit-test
 
 build:
-	CGO_ENABLED=0 go build -o build/init_container main/main.go
+	CGO_ENABLED=0 go build -ldflags="-s -w" -o build/init_container main/main.go
 
 build-images:
 	$(CONTAINER_COMMAND) build $(CONTAINER_BUILD_PARAMS) -f Dockerfile.gpu_init . -t $(INIT)
