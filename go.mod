@@ -4,6 +4,8 @@ go 1.16
 
 require (
 	github.com/NVIDIA/gpu-operator v1.8.1
+	github.com/onsi/ginkgo v1.16.1
+	github.com/onsi/gomega v1.11.0
 	github.com/openshift/cluster-nfd-operator v0.0.0-20210901165408-adb87ce0d9b7
 	github.com/operator-framework/api v0.9.2
 	github.com/operator-framework/operator-lifecycle-manager v0.18.3
